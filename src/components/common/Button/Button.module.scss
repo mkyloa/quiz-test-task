@@ -1,32 +1,33 @@
+@import "utils";
+
 .button {
+  padding: 0;
+  font-size: 14px;
+
+  color: $c-text-button;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button.primary {
   height: 64px;
   min-width: 330px;
   padding: 12px 20px;
+
+  border: 1px solid $c-border;
   border-radius: 16px;
-  border: 1px solid #E0E0E0;
-  background-color: #EAEEF7;
-  color: #201F1F;
-  font-size: 16px;
-  box-shadow: 2px 2px 6px 0px #543C9740;
-  cursor: pointer;
-  text-decoration: none;
+
+  background-color: $c-bg-button;
+  box-shadow: 2px 2px 6px 0px $c-shadow;
 
   &:active {
     color: #FBFBFF;
-    background: linear-gradient(165.54deg, #141333 -33.39%, #202261 15.89%, #543C97 55.84%, #6939A2 74.96%);
+    background: $gradient-stellar;
   }
 }
 
 .button.transparent {
-  min-width: initial;
   height: 24px;
-  border-radius: 0;
-  padding: 0;
   background-color: transparent;
   border: none;
-  box-shadow: none;
-
-  &:active {
-    background: none;
-  }
 }

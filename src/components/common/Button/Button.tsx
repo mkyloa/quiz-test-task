@@ -3,7 +3,13 @@ import styles from './Button.module.scss';
 import Link from 'next/link';
 import cn from 'classnames';
 
+export enum ButtonMode {
+  Primary = 'primary',
+  Transparent = 'transparent',
+}
+
 interface Props {
+  mode?: ButtonMode,
   Icon?: FC;
   text?: string;
   onClick?: () => void;
@@ -11,6 +17,7 @@ interface Props {
 }
 
 export const Button: FC<Props> = ({
+  mode = ButtonMode.Primary,
   text,
   href,
   onClick,
@@ -21,13 +28,13 @@ export const Button: FC<Props> = ({
   return (
     href
       ? (
-        <Link href={href} className={cn(styles.button, styles.transparent)}>
+        <Link href={href} className={cn(styles.button, styles[mode])}>
           {buttonContent}
         </Link>
       )
       : (
         <button
-          className={cn(styles.button, styles.transparent)}
+          className={cn(styles.button, styles[mode])}
           onClick={onClick}
         >
           {buttonContent}
