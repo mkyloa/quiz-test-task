@@ -1,0 +1,22 @@
+@import "utils";
+
+.wrapper {
+  background: $gradient-stellar;
+  height: 100vh;
+  text-align: center;
+
+  color: $c-text-inverse;
+
+  svg {
+    color: $c-text-inverse;
+  }
+}
+
+.buttonWrapper {
+  margin-top: 40px;
+}
+
+.textWrapper {
+  max-width: 322px;
+  margin: 0 auto;
+}

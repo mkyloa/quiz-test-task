@@ -6,6 +6,7 @@ import cn from 'classnames';
 export enum ButtonMode {
   Primary = 'primary',
   Transparent = 'transparent',
+  Inverted = 'inverted',
 }
 
 interface Props {
@@ -28,7 +29,10 @@ export const Button: FC<Props> = ({
   return (
     href
       ? (
-        <Link href={href} className={cn(styles.button, styles[mode])}>
+        <Link
+          href={href}
+          className={cn(styles.button, styles[mode])}
+        >
           {buttonContent}
         </Link>
       )
