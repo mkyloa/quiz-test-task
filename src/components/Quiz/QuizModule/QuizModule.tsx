@@ -5,8 +5,6 @@ import { QuizHeader } from '@/components/Quiz/QuizHeader';
 import styles from './QuizModule.module.scss';
 import { useRouter } from 'next/router';
 import { getQuestion } from '@/components/Quiz/quiz.helpers';
-// import { Provider } from 'react-redux';
-// import store from '@/store/store';
 
 export const QuizModule: FC = () => {
   const { query } = useRouter()
@@ -23,7 +21,11 @@ export const QuizModule: FC = () => {
       <QuizHeader />
 
       <main className={styles.wrapper}>
-        <QuestionTitle text={question.text} />
+        <QuestionTitle 
+          text={question.text} 
+          subtitle={question?.subheader}
+        />
+
         <AnswerContainer question={question} />
       </main>
     </>
