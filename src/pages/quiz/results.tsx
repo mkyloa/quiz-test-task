@@ -8,8 +8,8 @@ const ResultsPage: NextPageWithLayout = () => {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      Thanks for completing my quiz! Here's your result:
-      {Object.keys(answers).map(a => (<div>{a}: {answers[a]}</div>))}
+      Thanks for completing my quiz! Here&apos;s your result:
+      {Object.keys(answers).map((a, index) => (<div key={index}>{a}: {answers[a]}</div>))}
     </div>
   );
 };
