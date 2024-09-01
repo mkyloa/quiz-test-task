@@ -270,6 +270,12 @@
     ]
   },
   {
+    "slug": "how-does-it-work",
+    "text": "So how does it work?",
+    "subheader": "We analyze hundreds of data points to create your unique astrological blueprint. This is combined with AI to tailor-make your astrological insights, based on your answers. We’re going to change your relationship with astrology.",
+    "options": []
+  },
+  {
     "slug": "most-important",
     "text": "What is most important to you?",
     "next": "about-us",
@@ -314,5 +320,10 @@
         "text": "Not at all"
       }
     ]
+  },
+  {
+    "slug": "results",
+    "text": "Thanks for completing my quiz! Here's your result:",
+    "options": []
   }
 ]

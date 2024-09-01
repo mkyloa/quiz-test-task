@@ -1,29 +1,29 @@
 import React, { FC } from 'react';
-import styles from './HowDoesItWork.module.scss';
 import { QuestionTitle } from '@/components/Quiz/QuestionTitle';
 import { Button, ButtonMode } from '@/components/common/Button/Button';
 import { QuizHeader } from '@/components/Quiz/QuizHeader';
-import { getAnswer, getQuestionUrl } from '@/components/Quiz/quiz.helpers';
+import { getAnswer, getQuestion, getQuestionUrl } from '@/components/Quiz/quiz.helpers';
+import { QuestionSlugs } from '@/components/Quiz/quiz.typedefs';
+import styles from './HowDoesItWork.module.scss';
 
 export const HowDoesItWork: FC = () => {
-  const prevAnswer = getAnswer('overthink');
+  const { text, subheader } = getQuestion(QuestionSlugs.HowDoesItWork); 
+  const prevAnswer = getAnswer(QuestionSlugs.Overthink);
 
   const nextQuestion = prevAnswer === 'Yes'
-    ? getQuestionUrl('most-important')
-    : getQuestionUrl('emotional-control');
+    ? getQuestionUrl(QuestionSlugs.MostImportant)
+    : getQuestionUrl(QuestionSlugs.EmotionalControl);
 
   return (
     <div className={styles.wrapper}>
-      <QuizHeader />
+      <QuizHeader inverted />
 
       <QuestionTitle
-        text="So how does it work?"
+        text={text}
       />
 
       <p className={styles.textWrapper}>
-        We analyze hundreds of data points to create your unique astrological blueprint.
-        This is combined with AI to tailor-make your astrological insights, based on your answers.
-        We’re going to change your relationship with astrology.
+        {subheader}
       </p>
 
       <div className={styles.buttonWrapper}>

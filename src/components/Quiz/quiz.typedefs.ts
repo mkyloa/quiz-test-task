@@ -33,4 +33,5 @@ export enum QuestionSlugs {
   HowDoesItWork = "how-does-it-work",
   MostImportant = "most-important",
   EmotionalControl = "emotional-control",
+  Results = "results",
 }

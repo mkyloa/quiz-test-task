@@ -1,5 +1,8 @@
-
-import { QuestionSlugs, QuizQuestion, ReplacementValues } from '@/components/Quiz/quiz.typedefs';
+import {
+  QuestionSlugs,
+  QuizQuestion,
+  ReplacementValues,
+} from '@/components/Quiz/quiz.typedefs';
 import quizConfig from '@/components/Quiz/quiz.config.json'
 import store from '@/store/store';
 
@@ -11,7 +14,7 @@ export const getAnswer = (slug: QuestionSlugs) => {
   return answers[slug] || null;
 };
 
-export const getGender = () => {
+const getGender = () => {
   const gender = getAnswer(QuestionSlugs.Gender);
 
   return gender || '';
@@ -23,7 +26,7 @@ const getIsSingle = () => {
   return answer === 'Single';
 };
 
-export const getIsParent = () => {
+const getIsParent = () => {
   const isParent = getAnswer(QuestionSlugs.Parent) === 'Yes';
   const isSingleParent = getAnswer(QuestionSlugs.SingleParent) === 'Yes';
 
@@ -46,7 +49,7 @@ const prepareConfig = (
   return JSON.parse(replacedString);
 };
 
-export const getQuizConfig = (): QuizQuestion[] => {
+const getQuizConfig = (): QuizQuestion[] => {
   const gender = getGender();
   const isParent = getIsParent();
   const isSingle = getIsSingle();
@@ -80,4 +83,3 @@ export const getQuestion = (slug: QuestionSlugs): QuizQuestion => {
 
   return question;
 };
-
