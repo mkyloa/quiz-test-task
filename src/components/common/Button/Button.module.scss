@@ -16,7 +16,7 @@
   text-decoration: none;
 }
 
-.button.primary {
+.primary {
   border: 1px solid $c-border;
 
   background-color: $c-bg-button;
@@ -28,7 +28,7 @@
   }
 }
 
-.button.transparent {
+.transparent {
   height: 24px;
   background-color: transparent;
 
@@ -38,7 +38,7 @@
   border: none;
 }
 
-.button.inverted {
+.inverted {
   display: inline-block;
   font-size: 18px;
   line-height: 40px;
