@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { setAnswer } from '@/features/quizSlice';
 import styles from './AnswerContainer.module.scss';
+import { useSessionStorage } from '@/components/Quiz/hooks/useSessionStorage';
 
 interface Props {
   question: QuizQuestion;
@@ -12,12 +13,14 @@ interface Props {
 
 export const AnswerContainer: FC<Props> = ({ question }) => {
   const router = useRouter();
-  const slug = question.slug;
+  const { slug } = question;
+  const { saveData } = useSessionStorage('quizAnswers');
 
   const dispatch = useDispatch();
 
   const handleAnswerChange = (answer: string, nextQuestionSlug?: QuestionSlugs) => {
     dispatch(setAnswer({ slug, answer }));
+    saveData({ [slug]: answer });
 
     if (nextQuestionSlug) {
       router.push(nextQuestionSlug);

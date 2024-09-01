@@ -4,6 +4,7 @@ import { QuestionTitle } from '@/components/Quiz/QuestionTitle';
 import { QuizHeader } from '@/components/Quiz/QuizHeader';
 import { getQuestion } from '@/components/Quiz/quiz.helpers';
 import { QuestionSlugs } from '@/components/Quiz/quiz.typedefs';
+import { useAnswers } from '@/components/Quiz/hooks/useAnswers';
 import styles from './QuizModule.module.scss';
 
 interface Props {
@@ -11,7 +12,8 @@ interface Props {
 }
 
 export const QuizModule: FC<Props> = ({ slug }) => {
-  const question = getQuestion(slug);
+  const question = getQuestion(slug); 
+  useAnswers();
 
   return (
     <>
