@@ -5,7 +5,7 @@ import { NextPageWithLayout } from '@/pages/_app';
 import { QuizModule } from '@/components/Quiz/QuizModule';
 import { QuestionSlugs } from '@/components/Quiz/quiz.typedefs';
 import { HowDoesItWork } from '@/components/Quiz/HowDoesItWork';
-import { Results } from '@/components/Quiz/Results/Results';
+import { Results } from '@/components/Quiz/Results';
 import quizConfig from '@/components/Quiz/quiz.config.json'
 
 interface PageProps {

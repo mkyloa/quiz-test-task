@@ -4,14 +4,15 @@
   min-height: 64px;
   min-width: 330px;
   padding: 12px 20px;
-  
+
+  border: none;
   border-radius: 16px;
 
   font-size: 14px;
   line-height: 19px;
-  
+
   color: $c-text-button;
-  
+
   cursor: pointer;
   text-decoration: none;
 }

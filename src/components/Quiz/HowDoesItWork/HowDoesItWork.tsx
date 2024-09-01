@@ -2,17 +2,19 @@ import React, { FC } from 'react';
 import { QuestionTitle } from '@/components/Quiz/QuestionTitle';
 import { Button, ButtonMode } from '@/components/common/Button/Button';
 import { QuizHeader } from '@/components/Quiz/QuizHeader';
-import { getAnswer, getQuestion, getQuestionUrl } from '@/components/Quiz/quiz.helpers';
+import { getAnswer, getQuestion } from '@/components/Quiz/quiz.helpers';
 import { QuestionSlugs } from '@/components/Quiz/quiz.typedefs';
+import { useRouter } from 'next/navigation';
 import styles from './HowDoesItWork.module.scss';
 
 export const HowDoesItWork: FC = () => {
-  const { text, subheader } = getQuestion(QuestionSlugs.HowDoesItWork); 
+  const router = useRouter();
+  const { text, subheader } = getQuestion(QuestionSlugs.HowDoesItWork);
   const prevAnswer = getAnswer(QuestionSlugs.Overthink);
 
   const nextQuestion = prevAnswer === 'Yes'
-    ? getQuestionUrl(QuestionSlugs.MostImportant)
-    : getQuestionUrl(QuestionSlugs.EmotionalControl);
+    ? QuestionSlugs.MostImportant
+    : QuestionSlugs.EmotionalControl;
 
   return (
     <div className={styles.wrapper}>
@@ -30,7 +32,7 @@ export const HowDoesItWork: FC = () => {
         <Button
           mode={ButtonMode.Inverted}
           text="Next"
-          href={nextQuestion}
+          onClick={() => router.push(nextQuestion)}
         />
       </div>
     </div>

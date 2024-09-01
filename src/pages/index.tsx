@@ -1,18 +1,9 @@
 import Layout from '@/app/layout';
 import type { ReactElement } from 'react';
 import { NextPageWithLayout } from '@/pages/_app';
-import { Button } from '@/components/common/Button/Button';
+import { QuizStart } from '@/components/Quiz/QuizStart';
 
-const Page: NextPageWithLayout = () => {
-  return (
-    <div style={{ margin: '30px auto', width: 'fit-content' }}>
-      <Button
-        text='Start the quiz'
-        href='/quiz/gender'
-      />
-    </div>
-  );
-};
+const Page: NextPageWithLayout = () => <QuizStart />;
 
 Page.getLayout = function getLayout(page: ReactElement) {
   return (

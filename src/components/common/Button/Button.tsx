@@ -1,8 +1,7 @@
-import { FC } from 'react';
-import styles from './Button.module.scss';
-import Link from 'next/link';
+import React, { FC } from 'react';
 import cn from 'classnames';
 import Image from 'next/image';
+import styles from './Button.module.scss';
 
 export enum ButtonMode {
   Primary = 'primary',
@@ -15,15 +14,15 @@ interface Props {
   image?: string;
   text: string;
   onClick?: () => void;
-  href?: string;
+  className?: string;
 }
 
 export const Button: FC<Props> = ({
   mode = ButtonMode.Primary,
   text,
-  href,
   onClick,
   image,
+  className,
 }) => {
   const buttonContent = image
     ? (
@@ -36,22 +35,15 @@ export const Button: FC<Props> = ({
     : text;
 
   return (
-    href
-      ? (
-        <Link
-          href={href}
-          className={cn(styles.button, styles[mode])}
-        >
-          {buttonContent}
-        </Link>
-      )
-      : (
-        <button
-          className={cn(styles.button, styles[mode])}
-          onClick={onClick}
-        >
-          {buttonContent}
-        </button>
-      )
+    <button
+      onClick={onClick}
+      className={cn(
+        styles.button,
+        styles[mode],
+        className,
+      )}
+    >
+      {buttonContent}
+    </button>
   );
 };
