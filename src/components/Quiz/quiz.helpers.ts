@@ -1,6 +1,6 @@
 
-import { QuizQuestion } from '@/components/Quiz/quiz.typedefs';
-import { initQuizConfig } from '@/components/Quiz/quizConfig';
+import { QuizQuestion, ReplacementValues } from '@/components/Quiz/quiz.typedefs';
+import quizConfig from '@/components/Quiz/quiz.config.json'
 import store from '@/store/store';
 
 export const getQuestionUrl = (slug: string) => {
@@ -15,23 +15,66 @@ export const getAnswer = (slug: string) => {
 };
 
 export const getGender = () => {
-  const { answers } = store.getState().quizReducer;
+  const gender = getAnswer('gender');
 
-  return answers.gender || '';
+  return gender || '';
+};
+
+const getIsSingle = () => {
+  const answer = getAnswer('relationship-status');
+
+  return answer === 'Single';
 };
 
 export const getIsParent = () => {
-  const { answers } = store.getState().quizReducer;
-  const isParent = answers.parent === 'Yes';
-  const singleIsParent = answers['single-parent'] === 'Yes';
+  const isParent = getAnswer('parent') === 'Yes';
+  const isSingleParent = getAnswer('single-parent') === 'Yes';
 
-  return isParent || singleIsParent;
+  return isParent || isSingleParent;
 };
 
-export const getQuestion = (slug: string): QuizQuestion => {
+const replaceValues = (jsonString: string, values: ReplacementValues) => {
+  return jsonString.replace(/\${(.*?)}/g, (_, key) => (
+    values[key as keyof ReplacementValues] || ''
+  ));
+};
+
+const prepareConfig = (
+  config: QuizQuestion[],
+  replacements: ReplacementValues
+) => {
+  const jsonString = JSON.stringify(config);
+
+  const replacedString = replaceValues(jsonString, replacements);
+  return JSON.parse(replacedString);
+};
+
+export const getQuizConfig = (): QuizQuestion[] => {
   const gender = getGender();
   const isParent = getIsParent();
-  const quizConfig = initQuizConfig(gender, isParent);
+  const isSingle = getIsSingle();
+
+  const status = isSingle
+    ? `Single ${gender.toLowerCase()}`
+    : gender;
+
+  const isParentSubstring = isParent
+    ? 'who have children '
+    : '';
+
+  const replacements = {
+    status,
+    isParent: isParentSubstring,
+  }
+
+  return prepareConfig(
+    quizConfig,
+    replacements,
+  );
+}
+
+export const getQuestion = (slug: string): QuizQuestion => {
+  const quizConfig = getQuizConfig();
   const question = quizConfig.find(q => q.slug === slug);
 
   if (!question) {

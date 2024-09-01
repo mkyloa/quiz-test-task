@@ -11,3 +11,8 @@ export interface QuizOption {
   text: string;
   next?: string;
 }
+
+export interface ReplacementValues {
+  status: string;
+  isParent: string;
+}
