@@ -22,3 +22,9 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
+.inverted {
+  img {
+    filter: invert(100%);
+  }
+}
