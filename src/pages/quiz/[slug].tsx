@@ -1,12 +1,29 @@
 import React, { ReactElement } from 'react';
 import type { GetStaticPaths, GetStaticProps } from 'next';
-import { QuizModule } from '@/components/Quiz/QuizModule';
 import Layout from '@/app/layout';
 import { NextPageWithLayout } from '@/pages/_app';
+import { QuizModule } from '@/components/Quiz/QuizModule';
+import { QuestionSlugs } from '@/components/Quiz/quiz.typedefs';
+import { HowDoesItWork } from '@/components/Quiz/HowDoesItWork';
+import { Results } from '@/components/Quiz/Results/Results';
+import quizConfig from '@/components/Quiz/quiz.config.json'
 
-const QuizPage: NextPageWithLayout = () => (
-  <QuizModule />
-);
+interface PageProps {
+  slug: QuestionSlugs;
+}
+
+const QuizPage: NextPageWithLayout<PageProps> = ({ slug }) => {
+  switch (slug) {
+    case QuestionSlugs.HowDoesItWork:
+      return <HowDoesItWork />;
+    
+      case QuestionSlugs.Results:
+      return <Results />;
+
+    default:
+      return <QuizModule slug={slug} />;
+  }
+};
 
 QuizPage.getLayout = function getLayout(page: ReactElement) {
   return (
@@ -17,29 +34,20 @@ QuizPage.getLayout = function getLayout(page: ReactElement) {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = [
-    { params: { slug: 'gender' } },
-    { params: { slug: 'relationship-status' } },
-    { params: { slug: 'parent' } },
-    { params: { slug: 'happiness' } },
-    { params: { slug: 'partner-temperament' } },
-    { params: { slug: 'partner-gender' } },
-    { params: { slug: 'sex' } },
-    { params: { slug: 'goals' } },
-    { params: { slug: 'about-us' } },
-    { params: { slug: 'single-parent' } },
-    { params: { slug: 'single-happiness' } },
-    { params: { slug: 'overthink' } },
-    { params: { slug: 'most-important' } },
-    { params: { slug: 'emotional-control' } },
-  ];
+  const slugs = quizConfig.map(({ slug }) => ({ params: { slug } }));
 
   return {
-    paths,
+    paths: slugs,
     fallback: false,
   };
 };
 
-export const getStaticProps: GetStaticProps = async () => ({ props: {}, });
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { slug } = params as { slug: QuestionSlugs };
+
+  return {
+    props: { slug },
+  };
+};
 
 export default QuizPage;
