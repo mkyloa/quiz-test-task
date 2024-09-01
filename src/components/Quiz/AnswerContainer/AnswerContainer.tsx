@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Button, ButtonMode } from '@/components/common/Button/Button';
-import { QuizQuestion } from '@/components/Quiz/quiz.typedefs';
+import { QuestionSlugs, QuizQuestion } from '@/components/Quiz/quiz.typedefs';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { setAnswer } from '@/features/quizSlice';
@@ -12,31 +12,34 @@ interface Props {
 
 export const AnswerContainer: FC<Props> = ({ question }) => {
   const router = useRouter();
-  const { slug } = router.query;
+  const slug = question.slug;
 
   const dispatch = useDispatch();
 
-  const handleAnswerChange = (answer: string, nextQuestionSlug: string) => {
-    dispatch(setAnswer({ slug: `${slug}`, answer }));
+  const handleAnswerChange = (answer: string, nextQuestionSlug?: QuestionSlugs) => {
+    dispatch(setAnswer({ slug, answer }));
 
-    router.push(nextQuestionSlug);
+    if (nextQuestionSlug) {
+      router.push(nextQuestionSlug);
+    }
   };
 
   return (
     <div className={styles.wrapper}>
-      {question.options.map((option, index) => {
-        const nextQuestionSlug = option.next || question.next || '';
+      {
+        question.options.map((option, index) => {
+          const nextQuestionSlug = option.next || question.next;
 
-        return (
-          <Button
-            mode={ButtonMode.Primary}
-            key={index}
-            text={option.text}
-            onClick={() => handleAnswerChange(option.text, nextQuestionSlug)}
-          />
-        )
+          return (
+            <Button
+              mode={ButtonMode.Primary}
+              key={index}
+              text={option.text}
+              onClick={() => handleAnswerChange(option.text, nextQuestionSlug)}
+            />
+          )
+        })
       }
-      )}
     </div>
   );
 }

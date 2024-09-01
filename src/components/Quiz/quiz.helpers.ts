@@ -1,34 +1,31 @@
 
-import { QuizQuestion, ReplacementValues } from '@/components/Quiz/quiz.typedefs';
+import { QuestionSlugs, QuizQuestion, ReplacementValues } from '@/components/Quiz/quiz.typedefs';
 import quizConfig from '@/components/Quiz/quiz.config.json'
 import store from '@/store/store';
 
-export const getQuestionUrl = (slug: string) => {
+export const getQuestionUrl = (slug: QuestionSlugs) => (`/quiz/${slug}`);
 
-  return `/quiz/${slug}`;
-};
-
-export const getAnswer = (slug: string) => {
+export const getAnswer = (slug: QuestionSlugs) => {
   const { answers } = store.getState().quizReducer;
 
   return answers[slug] || null;
 };
 
 export const getGender = () => {
-  const gender = getAnswer('gender');
+  const gender = getAnswer(QuestionSlugs.Gender);
 
   return gender || '';
 };
 
 const getIsSingle = () => {
-  const answer = getAnswer('relationship-status');
+  const answer = getAnswer(QuestionSlugs.RelationshipStatus);
 
   return answer === 'Single';
 };
 
 export const getIsParent = () => {
-  const isParent = getAnswer('parent') === 'Yes';
-  const isSingleParent = getAnswer('single-parent') === 'Yes';
+  const isParent = getAnswer(QuestionSlugs.Parent) === 'Yes';
+  const isSingleParent = getAnswer(QuestionSlugs.SingleParent) === 'Yes';
 
   return isParent || isSingleParent;
 };
@@ -68,12 +65,12 @@ export const getQuizConfig = (): QuizQuestion[] => {
   }
 
   return prepareConfig(
-    quizConfig,
+    quizConfig as QuizQuestion[],
     replacements,
   );
 }
 
-export const getQuestion = (slug: string): QuizQuestion => {
+export const getQuestion = (slug: QuestionSlugs): QuizQuestion => {
   const quizConfig = getQuizConfig();
   const question = quizConfig.find(q => q.slug === slug);
 
