@@ -4,8 +4,8 @@ import { QuestionSlugs, QuizQuestion } from '@/components/Quiz/quiz.typedefs';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { setAnswer } from '@/features/quizSlice';
-import styles from './AnswerContainer.module.scss';
 import { useSessionStorage } from '@/components/Quiz/hooks/useSessionStorage';
+import styles from './AnswerContainer.module.scss';
 
 interface Props {
   question: QuizQuestion;
